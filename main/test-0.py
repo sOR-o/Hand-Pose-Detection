@@ -39,20 +39,61 @@ with mp_hands.Hands(min_detection_confidence=0.6, min_tracking_confidence=0.5, m
                     left_wrist = landmarks.landmark[0]
                     left_index_finger_mcp = landmarks.landmark[5]
                     left_pinky_mcp = landmarks.landmark[17]
+                    left_thumb_tip = landmarks.landmark[4]
 
-                    
+                    # Define the coordinates of reference point
+                    refpt = np.array([left_thumb_tip.x, left_thumb_tip.y, left_thumb_tip.z])
+
                     # Get the coordinates of the wrist landmark.
-                    left_wrist_x, left_wrist_y, left_wrist_z = left_wrist.x, left_wrist.y, left_wrist.z
+                    x1, y1, z1 = left_wrist.x, left_wrist.y, left_wrist.z
 
                     # Get the coordinates of the index finger mcp landmark.
-                    left_index_finger_mcp_x, left_index_finger_mcp_y, left_index_finger_mcp_z = left_index_finger_mcp.x, left_index_finger_mcp.y, left_index_finger_mcp.z
+                    x2, y2, z2 = left_index_finger_mcp.x, left_index_finger_mcp.y, left_index_finger_mcp.z
 
                     # Get the coordinates of the pinky mcp landmark.
-                    left_pinky_mcp_x, left_pinky_mcp_y, left_pinky_mcp_z = left_pinky_mcp.x, left_pinky_mcp.y, left_pinky_mcp.z
+                    x3, y3, z3 = left_pinky_mcp.x, left_pinky_mcp.y, left_pinky_mcp.z
 
-                    # Print the req. coordinates
-                    print([(left_wrist_x + left_index_finger_mcp_x + left_pinky_mcp_x)/3, (left_wrist_y + left_index_finger_mcp_y + left_pinky_mcp_y)/3, (left_wrist_z + left_index_finger_mcp_z + left_pinky_mcp_z)/3])
+                    # Define the coordinates of three points
+                    point1 = np.array([x1, y1, z1])
+                    point2 = np.array([x2, y2, z2])
+                    point3 = np.array([x3, y3, z3])
+
+                    # Calculate the centroid of the triangle
+                    centroid = (point1 + point2 + point3) / 3
+
+                    # Calculate the normal vector of the plane
+                    vector1 = point2 - point1
+                    vector2 = point3 - point1
+                    normal_vector = np.cross(vector1, vector2)
+
+                    # Normalize the normal vector (optional)
+                    normal_vector /= np.linalg.norm(normal_vector)
+
+                    # Calculate the direction vector of the line perpendicular to the plane (parallel to the normal vector)
+                    direction_vector = normal_vector
+
+                    # Define the distance "k" from the centroid
+                    k = 5.0 
+
+                    # Calculate the coordinates of the point at distance "k" from the centroid along the line
+                    point_above_plane = centroid + k * normal_vector
+                    point_below_plane = centroid - k * normal_vector
+
+                    # Calculate the distances from point1 to both points
+                    distance_above = np.linalg.norm(point_above_plane - point1)
+                    distance_below = np.linalg.norm(point_below_plane - point1)
                     
+                    closer_point = None
+
+                    # Determine which point is closer
+                    if distance_above < distance_below:
+                        closer_point = point_above_plane
+                    else:
+                        closer_point = point_below_plane
+
+                    print("Coordinates of the closer point:", closer_point)
+
+
                 else:
                     hand_color = (121, 44, 250)  # Color for the right hand
 
