@@ -11,3 +11,5 @@ Hand pose estimation is the process of determining the 3D or 2D positions of a p
 ## Contributing
 
 Contributions to this project are welcome! Whether it's bug fixes, new features, or documentation improvements, your contributions are valuable.
+
+in progress...
