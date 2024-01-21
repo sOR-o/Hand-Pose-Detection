@@ -59,6 +59,9 @@ while cap.isOpened():
             imgWhite = np.ones((imgSize, imgSize, 3), np.uint8) * 255
             imgCrop = image[y - offset:y + h + offset, x - offset:x + w + offset]
 
+            # Resize the cropped image to 400x400
+            imgCrop = cv2.resize(imgCrop, (imgSize, imgSize))
+
             # Save the cropped hand image when the 's' key is pressed
             cv2.imshow("ImageCrop", imgCrop)
             key = cv2.waitKey(1)
