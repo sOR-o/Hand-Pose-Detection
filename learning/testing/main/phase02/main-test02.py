@@ -11,7 +11,7 @@ mp_hands = mp.solutions.hands
 hands = mp_hands.Hands(min_detection_confidence=0.6, min_tracking_confidence=0.5, max_num_hands=2)
 
 # Load the classifier model and labels
-classifier = Classifier("Model/keras_model.h5", "Model/labels.txt")
+classifier = Classifier("model/keras_model.h5", "model/labels.txt")
 
 # Initialize webcam
 cap = cv2.VideoCapture(0)
