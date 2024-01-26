@@ -1,9 +1,7 @@
 import mediapipe as mp
 import cv2
 import numpy as np
-import math
 import time
-import os
 
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
@@ -14,16 +12,6 @@ hands = mp_hands.Hands(min_detection_confidence=0.6, min_tracking_confidence=0.5
 # Initialize webcam
 cap = cv2.VideoCapture(0)
 
-# Hand cropping constants
-offset = 30  # Adjust this offset as needed
-imgSize = 400
-folder = "Data/2"
-counter = 0
-
-# Create the "Data" folder if it doesn't exist
-if not os.path.exists(folder):
-    os.makedirs(folder)
-
 # Ask the user which hand to detect
 hand_to_detect = input("Enter the hand to detect (left/right): ").lower()
 if hand_to_detect not in ['left', 'right']:
@@ -32,13 +20,21 @@ if hand_to_detect not in ['left', 'right']:
     cv2.destroyAllWindows()
     exit()
 
-
 # For mirror image
 if hand_to_detect == "left":
     hand_to_detect = "right"
 else:
     hand_to_detect = "left"
 
+# Hand cropping constants
+offset = 30  # Adjust this offset as needed
+imgSize = 300
+folder = "Data/HandLines"
+counter = 0
+
+# Create the "Data" folder if it doesn't exist
+if not cv2.os.path.exists(folder):
+    cv2.os.makedirs(folder)
 
 while cap.isOpened():
     ret, frame = cap.read()
@@ -52,6 +48,9 @@ while cap.isOpened():
     image.flags.writeable = True
     image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
+    # Create a black canvas
+    canvas = np.zeros_like(image)
+
     if results.multi_hand_landmarks:
         for landmarks, hand in zip(results.multi_hand_landmarks, results.multi_handedness):
             # Determine if the hand is left or right and assign a unique color.
@@ -63,28 +62,35 @@ while cap.isOpened():
                     hand_color = (121, 22, 76)  # Color for the right hand
 
                 # Draw landmarks and connections using the determined hand color for both hands
+                mp_drawing.draw_landmarks(canvas, landmarks, mp_hands.HAND_CONNECTIONS,
+                                          mp_drawing.DrawingSpec(color=hand_color, thickness=2, circle_radius=4),
+                                          mp_drawing.DrawingSpec(color=hand_color, thickness=2, circle_radius=2))
+
                 mp_drawing.draw_landmarks(image, landmarks, mp_hands.HAND_CONNECTIONS,
                                           mp_drawing.DrawingSpec(color=hand_color, thickness=2, circle_radius=4),
                                           mp_drawing.DrawingSpec(color=hand_color, thickness=2, circle_radius=2))
 
-                # Hand cropping and saving
-                min_x = min(int(lm.x * image.shape[1]) for lm in landmarks.landmark)
-                max_x = max(int(lm.x * image.shape[1]) for lm in landmarks.landmark)
-                min_y = min(int(lm.y * image.shape[0]) for lm in landmarks.landmark)
-                max_y = max(int(lm.y * image.shape[0]) for lm in landmarks.landmark)
+                # Hand cropping
+                min_x = min(int(lm.x * canvas.shape[1]) for lm in landmarks.landmark)
+                max_x = max(int(lm.x * canvas.shape[1]) for lm in landmarks.landmark)
+                min_y = min(int(lm.y * canvas.shape[0]) for lm in landmarks.landmark)
+                max_y = max(int(lm.y * canvas.shape[0]) for lm in landmarks.landmark)
 
                 x, y, w, h = min_x, min_y, max_x - min_x, max_y - min_y
-                imgWhite = np.ones((imgSize, imgSize, 3), np.uint8) * 255
-                imgCrop = image[y - offset:y + h + offset, x - offset:x + w + offset]
+                imgCrop = canvas[y - offset:y + h + offset, x - offset:x + w + offset]
 
-                # Save the cropped hand image when the 's' key is pressed
-                cv2.imshow("ImageCrop", imgCrop)
+                # Resize the cropped image to 400x400
+                imgCrop = cv2.resize(imgCrop, (imgSize, imgSize))
+
+                # Display the cropped hand lines when the 's' key is pressed
+                cv2.imshow("HandLinesCrop", imgCrop)
+
                 key = cv2.waitKey(1)
                 if key == ord("s"):
                     counter += 1
-                    file_path = os.path.join(folder, f'Image_{time.time()}.jpg')
+                    file_path = cv2.os.path.join(folder, f'Image_{time.time()}.jpg')
                     cv2.imwrite(file_path, imgCrop)
-                    print(f"Image saved: {file_path} ({counter})")
+                    print(f"Hand lines saved: {file_path} ({counter})")
 
     # Display the frame with hand tracking
     cv2.imshow('Hand Tracking', image)
