@@ -2,7 +2,8 @@ import mediapipe as mp
 import cv2
 import numpy as np
 import math
-from cvzone.ClassificationModule import Classifier  # Make sure you have this module
+import time
+import os
 
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
@@ -10,15 +11,18 @@ mp_hands = mp.solutions.hands
 # Initialize hand tracking
 hands = mp_hands.Hands(min_detection_confidence=0.6, min_tracking_confidence=0.5, max_num_hands=2)
 
-# Load the classifier model and labels
-classifier = Classifier("model/keras_model.h5", "model/labels.txt")
-
 # Initialize webcam
 cap = cv2.VideoCapture(0)
 
 # Hand cropping constants
 offset = 30  # Adjust this offset as needed
 imgSize = 400
+folder = "Data/three"
+counter = 0
+
+# Create the "Data" folder if it doesn't exist
+if not os.path.exists(folder):
+    os.makedirs(folder)
 
 while cap.isOpened():
     ret, frame = cap.read()
@@ -45,31 +49,27 @@ while cap.isOpened():
                                       mp_drawing.DrawingSpec(color=hand_color, thickness=2, circle_radius=4),
                                       mp_drawing.DrawingSpec(color=hand_color, thickness=2, circle_radius=2))
 
-            # Hand cropping (without saving)
+            # Hand cropping and saving
             min_x = min(int(lm.x * image.shape[1]) for lm in landmarks.landmark)
             max_x = max(int(lm.x * image.shape[1]) for lm in landmarks.landmark)
             min_y = min(int(lm.y * image.shape[0]) for lm in landmarks.landmark)
             max_y = max(int(lm.y * image.shape[0]) for lm in landmarks.landmark)
 
             x, y, w, h = min_x, min_y, max_x - min_x, max_y - min_y
+            imgWhite = np.ones((imgSize, imgSize, 3), np.uint8) * 255
             imgCrop = image[y - offset:y + h + offset, x - offset:x + w + offset]
 
-            # Display the cropped hand image when the 's' key is pressed
+            # Resize the cropped image to 400x400
+            imgCrop = cv2.resize(imgCrop, (imgSize, imgSize))
+
+            # Save the cropped hand image when the 's' key is pressed
             cv2.imshow("ImageCrop", imgCrop)
-
-            # Convert the cropped image to RGB and resize it to match the model input shape
-            imgCrop = cv2.cvtColor(imgCrop, cv2.COLOR_BGR2RGB)
-            imgCrop = cv2.resize(imgCrop, (224, 224))  # Adjust the size according to your model
-
-            # Normalize the image
-            imgCrop = imgCrop / 255.0
-
-            # Add batch dimension for model prediction
-            imgCrop = np.expand_dims(imgCrop, axis=0)
-
-            # Predict the gesture using the classifier
-            prediction, index = classifier.getPrediction(imgCrop)
-            print(f"Predicted Gesture: {prediction}, Index: {index}")
+            key = cv2.waitKey(1)
+            if key == ord("s"):
+                counter += 1
+                file_path = os.path.join(folder, f'Image_{time.time()}.jpg')
+                cv2.imwrite(file_path, imgCrop)
+                print(f"Image saved: {file_path} ({counter})")
 
     # Display the frame with hand tracking
     cv2.imshow('Hand Tracking', image)

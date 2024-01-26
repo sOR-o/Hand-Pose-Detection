@@ -17,7 +17,7 @@ cap = cv2.VideoCapture(0)
 # Hand cropping constants
 offset = 30  # Adjust this offset as needed
 imgSize = 400
-folder = "Data/test1"
+folder = "Data1/three"
 counter = 0
 
 # Create the "Data" folder if it doesn't exist
@@ -58,9 +58,6 @@ while cap.isOpened():
             x, y, w, h = min_x, min_y, max_x - min_x, max_y - min_y
             imgWhite = np.ones((imgSize, imgSize, 3), np.uint8) * 255
             imgCrop = image[y - offset:y + h + offset, x - offset:x + w + offset]
-
-            # Resize the cropped image to 400x400
-            imgCrop = cv2.resize(imgCrop, (imgSize, imgSize))
 
             # Save the cropped hand image when the 's' key is pressed
             cv2.imshow("ImageCrop", imgCrop)

@@ -2,11 +2,12 @@ import mediapipe as mp
 import cv2
 import numpy as np
 import math
-import time
-import os
+from cvzone.ClassificationModule import Classifier
 
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
+
+classifier = Classifier("model/keras_model.h5", "model/labels.txt")
 
 # Initialize hand tracking
 hands = mp_hands.Hands(min_detection_confidence=0.6, min_tracking_confidence=0.5, max_num_hands=2)
@@ -17,12 +18,6 @@ cap = cv2.VideoCapture(0)
 # Hand cropping constants
 offset = 30  # Adjust this offset as needed
 imgSize = 400
-folder = "Data/test1"
-counter = 0
-
-# Create the "Data" folder if it doesn't exist
-if not os.path.exists(folder):
-    os.makedirs(folder)
 
 while cap.isOpened():
     ret, frame = cap.read()
@@ -49,7 +44,7 @@ while cap.isOpened():
                                       mp_drawing.DrawingSpec(color=hand_color, thickness=2, circle_radius=4),
                                       mp_drawing.DrawingSpec(color=hand_color, thickness=2, circle_radius=2))
 
-            # Hand cropping and saving
+            # Hand cropping (without saving)
             min_x = min(int(lm.x * image.shape[1]) for lm in landmarks.landmark)
             max_x = max(int(lm.x * image.shape[1]) for lm in landmarks.landmark)
             min_y = min(int(lm.y * image.shape[0]) for lm in landmarks.landmark)
@@ -59,14 +54,10 @@ while cap.isOpened():
             imgWhite = np.ones((imgSize, imgSize, 3), np.uint8) * 255
             imgCrop = image[y - offset:y + h + offset, x - offset:x + w + offset]
 
-            # Save the cropped hand image when the 's' key is pressed
             cv2.imshow("ImageCrop", imgCrop)
-            key = cv2.waitKey(1)
-            if key == ord("s"):
-                counter += 1
-                file_path = os.path.join(folder, f'Image_{time.time()}.jpg')
-                cv2.imwrite(file_path, imgCrop)
-                print(f"Image saved: {file_path} ({counter})")
+
+            prediction, index = classifier.getPrediction(imgCrop)
+            print(prediction,index)
 
     # Display the frame with hand tracking
     cv2.imshow('Hand Tracking', image)
