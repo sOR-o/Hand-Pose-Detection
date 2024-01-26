@@ -7,7 +7,10 @@ from cvzone.ClassificationModule import Classifier
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
 
-classifier = Classifier("model/keras_model.h5", "model/labels.txt")
+classifier = Classifier("learning/model/keras_model.h5", "learning/model/labels.txt")
+
+labels = ["one", "two", "thumbs_up"]
+confidence_threshold = 0.7
 
 # Initialize hand tracking
 hands = mp_hands.Hands(min_detection_confidence=0.6, min_tracking_confidence=0.5, max_num_hands=1)
@@ -69,6 +72,10 @@ while cap.isOpened():
                                           mp_drawing.DrawingSpec(color=hand_color, thickness=2, circle_radius=4),
                                           mp_drawing.DrawingSpec(color=hand_color, thickness=2, circle_radius=2))
 
+                mp_drawing.draw_landmarks(image, landmarks, mp_hands.HAND_CONNECTIONS,
+                                          mp_drawing.DrawingSpec(color=hand_color, thickness=2, circle_radius=4),
+                                          mp_drawing.DrawingSpec(color=hand_color, thickness=2, circle_radius=2))
+                
                 # Hand cropping
                 min_x = min(int(lm.x * canvas.shape[1]) for lm in landmarks.landmark)
                 max_x = max(int(lm.x * canvas.shape[1]) for lm in landmarks.landmark)
@@ -83,7 +90,13 @@ while cap.isOpened():
 
                 # Display the cropped hand lines when the 's' key is pressed
                 prediction, index = classifier.getPrediction(imgCrop)
-                print(prediction, index)
+
+                # Get the index of the maximum confidence score and getting the corresponding label
+                predicted_index = np.argmax(prediction)
+                predicted_label = labels[predicted_index]
+
+                print(f"Predicted Label: {predicted_label}, Confidence: {prediction[predicted_index]*100:.2f}%")
+
 
     # Display the frame with hand tracking
     cv2.imshow('Hand Tracking', image)

@@ -1,0 +1,4 @@
+prediction, index = classifier.getPrediction(imgCrop)
+
+The output [3.050329e-06, 0.99991703, 7.9864985e-05] represents the model's confidence scores for each class. 
+The second element (index 1) in the list has the highest confidence, which means the model predicts that the input image belongs to the class with index 1.

@@ -7,7 +7,7 @@ from cvzone.ClassificationModule import Classifier
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
 
-classifier = Classifier("Model/keras_model.h5", "Model/labels.txt")
+classifier = Classifier("learning/model/keras_model.h5", "learning/model/labels.txt")
 
 # Initialize hand tracking
 hands = mp_hands.Hands(min_detection_confidence=0.6, min_tracking_confidence=0.5, max_num_hands=2)

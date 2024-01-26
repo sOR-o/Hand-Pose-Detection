@@ -29,7 +29,7 @@ else:
 # Hand cropping constants
 offset = 30  # Adjust this offset as needed
 imgSize = 300
-folder = "Data/HandLines"
+folder = "Data/three"
 counter = 0
 
 # Create the "Data" folder if it doesn't exist
