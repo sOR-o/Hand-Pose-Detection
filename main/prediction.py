@@ -10,7 +10,7 @@ mp_hands = mp.solutions.hands
 classifier = Classifier("main/model/keras_model.h5", "main/model/labels.txt")
 
 # Enter the class names
-labels = ["one", "two", "thumbs_up"]
+labels = ["chill", "chuu", "hi", "peace", "stop", "thumbs up"]
 
 # Set the confidence threshold for the predictions
 confidence_threshold = 0.7
@@ -37,13 +37,8 @@ else:
 
 # Hand cropping constants
 offset = 30  # Adjust this offset as needed
-imgSize = 400
-folder = "Data/HandLines"
+imgSize = 300
 counter = 0
-
-# Create the "Data" folder if it doesn't exist
-if not cv2.os.path.exists(folder):
-    cv2.os.makedirs(folder)
 
 while cap.isOpened():
     ret, frame = cap.read()

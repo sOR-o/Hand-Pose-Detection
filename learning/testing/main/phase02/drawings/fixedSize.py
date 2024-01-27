@@ -9,8 +9,8 @@ mp_hands = mp.solutions.hands
 
 classifier = Classifier("learning/model/keras_model.h5", "learning/model/labels.txt")
 
-labels = ["one", "two", "thumbs_up"]
-confidence_threshold = 0.7
+labels = ["chuu", "hi", "peace", "stop", "thumbs up"]
+confidence_threshold = 80.00
 
 # Initialize hand tracking
 hands = mp_hands.Hands(min_detection_confidence=0.6, min_tracking_confidence=0.5, max_num_hands=1)
@@ -34,13 +34,9 @@ else:
 
 # Hand cropping constants
 offset = 30  # Adjust this offset as needed
-imgSize = 400
-folder = "Data/HandLines"
+imgSize = 300
 counter = 0
 
-# Create the "Data" folder if it doesn't exist
-if not cv2.os.path.exists(folder):
-    cv2.os.makedirs(folder)
 
 while cap.isOpened():
     ret, frame = cap.read()
@@ -94,8 +90,8 @@ while cap.isOpened():
                 # Get the index of the maximum confidence score and getting the corresponding label
                 predicted_index = np.argmax(prediction)
                 predicted_label = labels[predicted_index]
-
-                print(f"Predicted Label: {predicted_label}, Confidence: {prediction[predicted_index]*100:.2f}%")
+                if prediction[predicted_index]*100 >= confidence_threshold:
+                    print(f"Predicted Label: {predicted_label}, Confidence: {prediction[predicted_index]*100:.2f}%")
 
 
     # Display the frame with hand tracking

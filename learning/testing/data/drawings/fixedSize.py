@@ -29,7 +29,7 @@ else:
 # Hand cropping constants
 offset = 30  # Adjust this offset as needed
 imgSize = 300
-folder = "Data/three"
+folder = "learning/testing/data/Data/kwiks"
 counter = 0
 
 # Create the "Data" folder if it doesn't exist
