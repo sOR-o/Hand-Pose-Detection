@@ -9,7 +9,7 @@ Hand pose estimation is the process of determining the 3D or 2D positions of a p
 2. Install Dependencies : `pip install -r requirements.txt`
 
 ## Dataset Generation and Custom Gesture Detection
-This project offers a versatile platform for hand-related tasks, including dataset generation and custom hand gesture detection. The best place to start and learn about the project's evolution is the ["learning"](https://github.com/sOR-o/Hand-Pose-Estimation/tree/main/learning/testing) folder. Here, you'll find different levels of understanding, providing comprehensive insights into the project's development.
+This project offers a versatile platform for hand-related tasks, including dataset generation and custom hand gesture detection. The best place to start and learn about the project's evolution is the ["learning/testing"](https://github.com/sOR-o/Hand-Pose-Estimation/tree/main/learning/testing) folder. Here, you'll find different levels of understanding, providing comprehensive insights into the project's development.
 
 
 -Can be improved by transfer learning (obviously 😉)
