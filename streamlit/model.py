@@ -43,7 +43,7 @@ gesture_images = [
     "learning/testing/data/Data/kwiks/Image_1706387011.21945.jpg",
     "learning/testing/data/Data/peace/Image_1706372568.933511.jpg",
     "learning/testing/data/Data/stop/Image_1706372696.49316.jpg",
-    "learning/testing/data/Data/thumbs_up/Image_1706372137.717592.jpg"
+    "learning/testing/data/Data/thumbsUp/Image_1706372137.717592.jpg"
 ]
 
 # Display the images horizontally
