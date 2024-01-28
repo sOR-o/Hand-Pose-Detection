@@ -4,3 +4,5 @@ opencv-python
 tensorflow
 cvzone
 streamlit
+streamlit_webrtc
+av
