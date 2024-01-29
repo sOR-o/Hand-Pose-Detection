@@ -18,7 +18,7 @@ classifier = Classifier("streamlit/model/keras_model.h5", "streamlit/model/label
 
 # Define gesture labels and confidence threshold
 labels = ['chill', 'suchuu', 'hey, hello', 'kwiks', 'peace out', 'stop', 'thumbs up']
-confidence_threshold = 70.00
+confidence_threshold = 65.00
 
 # Initialize hand tracking
 hands = mp_hands.Hands(min_detection_confidence=0.6, min_tracking_confidence=0.5, max_num_hands=1)
@@ -34,6 +34,9 @@ imgSize = 300
 st.title("Hand Pose Detection")
 
 class VideoProcessor:
+    def __init__(self):
+        pass
+
     def recv(self, frame):
         # Convert the frame to opencv format
         image = frame.to_ndarray(format="bgr24")
