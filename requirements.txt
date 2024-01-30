@@ -6,3 +6,5 @@ cvzone
 streamlit
 streamlit_webrtc
 av
+PIL
+keras.models
