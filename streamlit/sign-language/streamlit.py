@@ -9,7 +9,7 @@ st.set_page_config(page_title="hand-pose-detection", page_icon="assets/logo.png"
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
 
-classifier = Classifier("streamlit/model/keras_model.h5", "streamlit/model/labels.txt")
+classifier = Classifier("streamlit/sign-language/model/keras_model.h5", "streamlit/sign-language/model/labels.txt")
 
 labels = ['bye', 'bye', 'fine', 'fine', 'good', 'good', 'hello', 'hello', 'help', 'me', 'me', 'name', 'thanku', 'thanku', 'thumbsup', 'thumbsup', 'what', 'you', 'zada']
 confidence_threshold = 80.00

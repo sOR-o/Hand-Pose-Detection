@@ -19,7 +19,7 @@ offset = 30  # Adjust this offset as needed
 factor = 150
 imgSizex = 4*factor
 imgSizey = 3*factor
-folder = "Data/test"
+folder = "Data/fine1"
 counter = 0
 
 # Create the "Data" folder if it doesn't exist
