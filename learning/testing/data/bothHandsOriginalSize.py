@@ -16,8 +16,10 @@ cap = cv2.VideoCapture(0)
 
 # Hand cropping constants
 offset = 30  # Adjust this offset as needed
-imgSize = 400
-folder = "Data/one"
+factor = 150
+imgSizex = 4*factor
+imgSizey = 3*factor
+folder = "Data/test"
 counter = 0
 
 # Create the "Data" folder if it doesn't exist
@@ -40,6 +42,9 @@ try:
         results = hands.process(image)
         image.flags.writeable = True
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+
+        # Create a black canvas
+        canvas = np.zeros_like(image)
 
         # Reset flags for each iteration
         left_hand_detected = False
@@ -64,6 +69,11 @@ try:
                                           mp_drawing.DrawingSpec(color=hand_color, thickness=2, circle_radius=4),
                                           mp_drawing.DrawingSpec(color=hand_color, thickness=2, circle_radius=2))
 
+                # Draw landmarks and connections using the determined hand color for both hands
+                mp_drawing.draw_landmarks(canvas, landmarks, mp_hands.HAND_CONNECTIONS,
+                                          mp_drawing.DrawingSpec(color=hand_color, thickness=2, circle_radius=4),
+                                          mp_drawing.DrawingSpec(color=hand_color, thickness=2, circle_radius=2))
+
                 # Append landmarks coordinates to the respective hand list
                 if hand.classification[0].label == "Left":
                     left_hand_landmarks.extend([(lm.x * image.shape[1], lm.y * image.shape[0]) for lm in landmarks.landmark])
@@ -71,13 +81,22 @@ try:
                     right_hand_landmarks.extend([(lm.x * image.shape[1], lm.y * image.shape[0]) for lm in landmarks.landmark])
 
                 # Hand cropping
-                min_x = min(int(lm.x * image.shape[1]) for lm in landmarks.landmark)
-                max_x = max(int(lm.x * image.shape[1]) for lm in landmarks.landmark)
-                min_y = min(int(lm.y * image.shape[0]) for lm in landmarks.landmark)
-                max_y = max(int(lm.y * image.shape[0]) for lm in landmarks.landmark)
+                if hand.classification[0].label == "Left":
+                    left_hand_landmarks.extend([(lm.x * canvas.shape[1], lm.y * canvas.shape[0]) for lm in landmarks.landmark])
+                else:
+                    right_hand_landmarks.extend([(lm.x * canvas.shape[1], lm.y * canvas.shape[0]) for lm in landmarks.landmark])
+
+                # Hand cropping
+                min_x = min(int(lm.x * canvas.shape[1]) for lm in landmarks.landmark)
+                max_x = max(int(lm.x * canvas.shape[1]) for lm in landmarks.landmark)
+                min_y = min(int(lm.y * canvas.shape[0]) for lm in landmarks.landmark)
+                max_y = max(int(lm.y * canvas.shape[0]) for lm in landmarks.landmark)
 
                 x, y, w, h = min_x, min_y, max_x - min_x, max_y - min_y
-                cropHand = image[y - offset:y + h + offset, x - offset:x + w + offset]
+                cropHand = canvas[y - offset:y + h + offset, x - offset:x + w + offset]
+
+                # Resize the cropped image to imgSize x imgSize
+                cropHand = cv2.resize(cropHand, (imgSizex, imgSizey))
 
             # Check if both hands are close
             if left_hand_detected and right_hand_detected:
@@ -94,7 +113,10 @@ try:
                 max_y += offset
 
                 # Crop the region enclosed by the modified rectangle
-                cropHands = image[int(min_y):int(max_y), int(min_x):int(max_x)]
+                cropHands = canvas[int(min_y):int(max_y), int(min_x):int(max_x)]
+
+                # Resize the cropped image to imgSize x imgSize
+                cropHands = cv2.resize(cropHands, (imgSizex, imgSizey))            
 
             # Display the cropped hand image when the 's' key is pressed
             if (left_hand_detected and not right_hand_detected) or (right_hand_detected and not left_hand_detected):
