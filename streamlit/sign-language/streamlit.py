@@ -4,43 +4,72 @@ import numpy as np
 from cvzone.ClassificationModule import Classifier
 import streamlit as st
 
-st.set_page_config(page_title="hand-pose-detection", page_icon="assets/logo.png")
+st.set_page_config(page_title="sign-language", page_icon="assets/asset08.png")
 
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
 
-classifier = Classifier("streamlit/sign-language/model/keras_model.h5", "streamlit/sign-language/model/labels.txt")
+classifier = Classifier("streamlit/sign-language/model01/keras_model.h5", "streamlit/sign-language/model01/labels.txt")
 
-labels = ['bye', 'bye', 'fine', 'fine', 'good', 'good', 'hello', 'hello', 'help', 'me', 'me', 'name', 'thanku', 'thanku', 'thumbsup', 'thumbsup', 'what', 'you', 'zada']
-confidence_threshold = 80.00
+labels = ['bathroom', 'bye', 'bye', 'doing', 'fine', 'fine', 'good', 'hello', 'hello', 'help', 'how', 'live', 'love', 'me', 'me', 'much', 'name', 'ques', 'stop', 'thanku', 'thanku', 'thumbsup', 'thumbsup', 'what', 'where', 'you']
+confidence_threshold = 70.00
 
 # Initialize hand tracking
 hands = mp_hands.Hands(min_detection_confidence=0.6, min_tracking_confidence=0.5, max_num_hands=2)
 
 # Hand cropping constants
 offset = 30  # Adjust this offset as needed
-factor = 150
-imgSizex = 4 * factor
-imgSizey = 3 * factor
+imgSizex = 600
+imgSizey = 600
 
-st.title("Hand Pose Detection")
+st.title("sign-language")
 
 # Create a placeholder for displaying the webcam feed
 image_placeholder = st.image([])
 
 # Display the gesture images in a horizontal line
 gesture_images = [
-    "learning/testing/data/Data/chill/Image_1706386389.546958.jpg",
-    "learning/testing/data/Data/chuu/Image_1706373053.875865.jpg",
-    "learning/testing/data/Data/hi/Image_1706372404.508589.jpg",
-    "learning/testing/data/Data/kwiks/Image_1706387011.21945.jpg",
-    "learning/testing/data/Data/peace/Image_1706372568.933511.jpg",
-    "learning/testing/data/Data/stop/Image_1706372696.49316.jpg",
-    "learning/testing/data/Data/thumbsUp/Image_1706372137.717592.jpg"
+    "learning/testing/data/sign-language/bye2/Image_1707039809.9438741.jpg",
+    "learning/testing/data/sign-language/fine2/Image_1707040085.656412.jpg",
+    "learning/testing/data/sign-language/hello2/Image_1707041322.978965.jpg",
+    "learning/testing/data/sign-language/good/Image_1707040603.533092.jpg",
+    "learning/testing/data/sign-language/help/Image_1707044857.938269.jpg",
+    "learning/testing/data/sign-language/how/Image_1707045619.622827.jpg",
+    "learning/testing/data/sign-language/live/Image_1707044991.304802.jpg"
 ]
 
 # Display the images horizontally
-st.image(gesture_images, width=100, caption=['chill', 'suchuu', 'hey, hello', 'kwiks', 'peace out', 'stop', 'thumbs up'])
+st.image(gesture_images, width=100, caption=['bye', 'fine', 'hello', 'good', 'help', 'how', 'live'])
+
+
+# Display the gesture images in a horizontal line
+gesture_images = [
+    "learning/testing/data/sign-language/love/Image_1707045538.722445.jpg",
+    "learning/testing/data/sign-language/me2/Image_1707041555.539006.jpg",
+    "learning/testing/data/sign-language/much/Image_1707045368.705156.jpg",
+    "learning/testing/data/sign-language/name/Image_1707045245.527601.jpg",
+    "learning/testing/data/sign-language/ques/Image_1707041858.998496.jpg",
+    "learning/testing/data/sign-language/stop/Image_1707042065.17011.jpg",
+    "learning/testing/data/sign-language/thankyou2/Image_1707042271.704127.jpg"
+]
+
+# Display the images horizontally
+st.image(gesture_images, width=100, caption=['love', 'me', 'much', 'name', 'ques', 'stop', 'thanku'])
+
+
+# Display the gesture images in a horizontal line
+gesture_images = [
+    "learning/testing/data/sign-language/thumbsup2/Image_1707042490.842237.jpg",
+    "learning/testing/data/sign-language/what/Image_1707043113.307008.jpg",
+    "learning/testing/data/sign-language/where/Image_1707042587.2094588.jpg",
+    "learning/testing/data/sign-language/you/Image_1707042701.319511.jpg",
+    "learning/testing/data/sign-language/bathroom/Image_1707039429.5277262.jpg",
+    "learning/testing/data/sign-language/doing/Image_1707045801.082792.jpg",
+    "learning/testing/data/sign-language/r/Image_1707055225.409577.jpg"
+]
+
+# Display the images horizontally
+st.image(gesture_images, width=100, caption=['thumbsup', 'what', 'where', 'you','bathroom', 'doing', 'r'])
 
 st.markdown("""
     <div style="text-align: center;">
