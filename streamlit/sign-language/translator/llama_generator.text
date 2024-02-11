@@ -2,7 +2,7 @@ class SignLanguageTranslator:
     def __init__(self, default_text):
         self.default_text = default_text
         self.text = default_text
-        self.queue_size = 5
+        self.queue_size = 3
         self.broken_correct_queue = []
 
     def append_broken_sentence(self, broken):
@@ -39,7 +39,7 @@ translator = SignLanguageTranslator(default_text)
 broken1 = "hi i shubham1"
 translator.append_broken_sentence(broken1)
     
-    
+
     
 correct1 = "Hi i am Shubham1"
 translator.append_correct_sentence(correct1)
