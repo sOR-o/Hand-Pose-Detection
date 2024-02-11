@@ -11,7 +11,7 @@ Hand pose estimation is the process of determining the 3D or 2D positions of a p
 ## Dataset Generation and Custom Gesture Detection
 This project offers a versatile platform for hand-related tasks, including `dataset generation` and custom hand gesture detection. The best place to start and learn about the project's evolution is the ["learning/testing"](https://github.com/sOR-o/Hand-Pose-Estimation/tree/main/learning/testing) folder. Here, you'll find different levels of understanding, providing comprehensive insights into the project's development.
 
-## Sign Language Recognition 
+# Sign Language Recognition 
 ###### (In progress...)
 
 One of the key applications of hand pose estimation is sign language recognition. This project provides tools and resources to develop and train models for recognizing sign language gestures. Here's how it works:
