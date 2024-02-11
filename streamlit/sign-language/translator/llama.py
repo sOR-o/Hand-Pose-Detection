@@ -99,11 +99,6 @@ class SignLanguageTranslator:
         return extracted_text
         
         
-
-
-
-
-
 text = "You are an AI Sign Language Translator. You are given sentences which are inferred from a vision model capturing words for signs. Expect the sentences to be broken. Your task is to transform the input sentences to the nearest correct output sentence. Even if the input sentence is grammatically incorrect, try to convey the most prominent response."
 text += '''\nBroken: hi i saurabh
 Correct: Hi I am Saurabh.

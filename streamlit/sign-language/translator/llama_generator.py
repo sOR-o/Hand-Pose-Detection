@@ -36,12 +36,10 @@ default_text = "System: You are an AI Sign Language Translator. You are given se
 translator = SignLanguageTranslator(default_text)
 
  
-broken1 = "hi i shubham1"
+broken1 = "hi i shubham"
 translator.append_broken_sentence(broken1)
     
-
-    
-correct1 = "Hi i am Shubham1"
+correct1 = "Hi i am Shubham"
 translator.append_correct_sentence(correct1)
     
 print(translator.text)

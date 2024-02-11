@@ -1,3 +1,6 @@
 .vscode
 .ipynb_checkpoints
 .DS_Store
+*.gguf
+.venv
+__pycache__
