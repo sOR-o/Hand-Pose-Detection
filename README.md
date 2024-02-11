@@ -11,8 +11,8 @@ Hand pose estimation is the process of determining the 3D or 2D positions of a p
 ## Dataset Generation and Custom Gesture Detection
 This project offers a versatile platform for hand-related tasks, including `dataset generation` and custom hand gesture detection. The best place to start and learn about the project's evolution is the ["learning/testing"](https://github.com/sOR-o/Hand-Pose-Estimation/tree/main/learning/testing) folder. Here, you'll find different levels of understanding, providing comprehensive insights into the project's development.
 
-# Sign Language Recognition 
-###### (In progress...)
+###### One of the Application ↓
+# Real-time Sign Language Translator
 
 One of the key applications of hand pose estimation is sign language recognition. This project provides tools and resources to develop and train models for recognizing sign language gestures. Here's how it works:
 
@@ -22,9 +22,20 @@ One of the key applications of hand pose estimation is sign language recognition
 
 - **Storing Predicted Labels:** The predicted labels, representing sign language gestures, are stored for interpretation and translation.
 
-- **Real-Time Translation:** The stored predicted labels are passed into a language model, i.e Lamma2 13B for translation. This model interprets the sign language gestures and generates the corresponding text.
+- **Real-Time Translation:** The stored predicted labels are passed into a LLM, i.e `Llama2 13B` for translation. This model interprets the sign language gestures and generates the corresponding text.
 
 - **Displaying Real-Time Translation:** The translated text is then displayed in real-time, allowing seamless communication between sign language users and non-signers.
+
+  ## Installation 
+1. Clone the Repository : `https://github.com/sOR-o/Hand-Pose-Estimation.git`
+2. Install Dependencies : `pip install -r requirements.txt`
+3. Move to the llama.cpp directory and run the command in 4 : `cd llama.cpp`
+4. 
+   `./server -m /Users/saurabh/Documents/projects/Hand-Pose-Estimation/models/llama-2-13b-chat.Q4_0.gguf -ngl 999 -c 2048`
+6. Go to the previous directoy (`cd ..`) and run the following command : `streamlit run streamlit/sign-language/z-Main.py`
+
+
+###### All set! To add more custom gestures, check out the [learning/testing](https://github.com/sOR-o/Hand-Pose-Estimation/tree/main/learning/testing) directory.
 
 
 ## Customization Options
