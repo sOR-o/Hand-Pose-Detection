@@ -26,13 +26,15 @@ One of the key applications of hand pose estimation is sign language recognition
 
 - **Displaying Real-Time Translation:** The translated text is then displayed in real-time, allowing seamless communication between sign language users and non-signers.
 
-  ## Installation 
-1. Clone the Repository : `https://github.com/sOR-o/Hand-Pose-Estimation.git`
-2. Install Dependencies : `pip install -r requirements.txt`
-3. Move to the llama.cpp directory and run the command in 4 : `cd llama.cpp`
-4. 
-   `./server -m /Users/saurabh/Documents/projects/Hand-Pose-Estimation/models/llama-2-13b-chat.Q4_0.gguf -ngl 999 -c 2048`
-6. Go to the previous directoy (`cd ..`) and run the following command : `streamlit run streamlit/sign-language/z-Main.py`
+## Installation
+
+1. **Clone the Repository**: `git clone https://github.com/sOR-o/Hand-Pose-Estimation.git`
+2. **Install Dependencies**: `pip install -r requirements.txt`
+3. **Run LlamaCPP Setup Script**: `bash setup_llamacpp.sh`
+4. **Start LlamaCPP Server**: `bash start_llamacpp_server.sh`
+5. **Run the Model Script**: `python streamlit/sign-language/Main/model.py`
+6. **Launch Frame Interface**: `streamlit run streamlit/sign-language/Main/frame.py`
+
 
 
 ###### All set! To add more custom gestures, check out the [learning/testing](https://github.com/sOR-o/Hand-Pose-Estimation/tree/main/learning/testing) directory.
