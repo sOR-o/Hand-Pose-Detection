@@ -4,9 +4,6 @@ Hand pose estimation is the process of determining the 3D or 2D positions of a p
 
 [<img src="./assets/asset04.png" height=400 weidth=600></img>](https://github.com/sOR-o/Hand-Pose-Estimation/assets/69918938/4fc4ee75-e6fd-4d47-8b89-e921ec92cdb5)
 
-## Getting Started
-1. Clone the Repository : `https://github.com/sOR-o/Hand-Pose-Estimation.git`
-2. Install Dependencies : `pip install -r requirements.txt`
 
 ## Dataset Generation and Custom Gesture Detection
 This project offers a versatile platform for hand-related tasks, including `dataset generation` and custom hand gesture detection. The best place to start and learn about the project's evolution is the ["learning/testing"](https://github.com/sOR-o/Hand-Pose-Estimation/tree/main/learning/testing) folder. Here, you'll find different levels of understanding, providing comprehensive insights into the project's development.
@@ -26,7 +23,7 @@ One of the key applications of hand pose estimation is sign language recognition
 
 - **Displaying Real-Time Translation:** The translated text is then displayed in real-time, allowing seamless communication between sign language users and non-signers.
 
-## Installation
+## Getting Started
 
 1. **Clone the Repository**: `git clone https://github.com/sOR-o/Hand-Pose-Estimation.git`
 2. **Install Dependencies**: `pip install -r requirements.txt`
