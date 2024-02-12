@@ -7,8 +7,8 @@ def process_string(input_string):
     return llama.translator.translate(input_string)
 
 def main():
-    input_filename = 'streamlit/sign-language/z-parallel/broken.txt'
-    output_filename = 'streamlit/sign-language/z-parallel/correct.txt'
+    input_filename = 'streamlit/sign-language/Main/broken.txt'
+    output_filename = 'streamlit/sign-language/Main/correct.txt'
 
     processed_timestamps = set()
 

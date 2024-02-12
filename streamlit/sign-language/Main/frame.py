@@ -28,8 +28,8 @@ offset = 30  # Adjust this offset as needed
 imgSizex = 600
 imgSizey = 600
 
-brokenFilepath = "streamlit/sign-language/z-parallel/broken.txt"
-correctFilepath = "streamlit/sign-language/z-parallel/correct.txt"
+brokenFilepath = "streamlit/sign-language/Main/broken.txt"
+correctFilepath = "streamlit/sign-language/Main/correct.txt"
 functions.clear_file_content(brokenFilepath)
 functions.clear_file_content(correctFilepath)
 
