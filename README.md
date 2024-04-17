@@ -10,6 +10,8 @@ This project offers a versatile platform for hand-related tasks, including `data
 ###### One of the Application ↓
 # Real-time Sign Language Translator
 
+[<img src="./assets/asset04.png" height=400 weidth=600></img>](https://github.com/sOR-o/Hand-Pose-Estimation/assets/69918938/1a7b84b4-715a-41e0-847a-4ab638ff66e2)
+
 One of the key applications of hand pose estimation is sign language recognition. This project provides tools and resources to develop and train models for recognizing sign language gestures. Here's how it works:
 
 - **Hand Gesture Detection:** The system detects and tracks hand gestures using hand pose estimation techniques.
