@@ -1,4 +1,4 @@
-# Hand-Pose-Estimation
+# Hand-Pose-Detection and Accelerated Real-Time Sign Language Translation with LLMs
 This is a comprehensive sign language translation system that integrates hand pose estimation, language modeling, and real-time translation capabilities. The system comprises several components, including scripts for generating custom hand pose labeled data, model training scripts, a Streamlit application for real-time translation, and a server component for processing sign language sequences using a language model. Leveraging an awq quantized variant of Llama-2-13b accelerated by llamacpp for GPU inference, the system achieves efficient and accurate translation of sign language gestures into coherent sentences. The carefully crafted prompt template ensures the accuracy and fluency of translations, making the system suitable for diverse communication scenarios.
 
 [<img src="./assets/asset04.png" height=400 weidth=600></img>](https://github.com/sOR-o/Hand-Pose-Estimation/assets/69918938/4fc4ee75-e6fd-4d47-8b89-e921ec92cdb5)
