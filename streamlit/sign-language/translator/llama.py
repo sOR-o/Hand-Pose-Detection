@@ -84,7 +84,7 @@ class SignLanguageTranslator:
             if line.strip().startswith('data: '):
                 try:
                     data = json.loads(line.split('data: ')[1])
-                    content = data['content'].strip()
+                    content = data['content']
                     if content == "":
                         break
                     contents.append(content)
@@ -92,7 +92,7 @@ class SignLanguageTranslator:
                     pass
 
         # Join the contents excluding '\n'
-        extracted_text = ' '.join(contents).replace("\\n", "")
+        extracted_text = ''.join(contents).replace("\\n", "")
         print(extracted_text)
         self.append_correct_sentence(extracted_text)
 
